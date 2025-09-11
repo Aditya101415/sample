@@ -1,11 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Love You</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: cursive;
+    }
+
+    .bg_heart {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-image: url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: -2;
+    }
+
+    .container {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .circular-image {
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #fff;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .circular-image:hover {
+      transform: scale(1.05);
+    }
+
+    .heart {
+      position: absolute;
+      top: -50%;
+      transform: rotate(-45deg);
+      animation: love var(--anim) ease forwards;
+    }
+
+    .heart:before, .heart:after {
+      content: "";
+      position: absolute;
+      width: 100%; height: 100%;
+      background: inherit;
+      border-radius: 50%;
+    }
+
+    .heart:before { top: -50%; left: 0; }
+    .heart:after  { top: 0; right: -50%; }
+
+    @keyframes love {
+      0% { top: 110%; opacity: 0; }
+      100% { top: -10%; opacity: 1; }
+    }
+
+    #text1 {
+      font-size: 22px;
+      text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
+      margin-top: 20px;
+    }
+
+    #response-buttons {
+      display: none;
+      margin-top: 30px;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    #response-buttons button {
+      margin: 10px;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 25px;
+      font-size: 18px;
+      font-family: cursive;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .yes {
+      background-color: #ff5e99;
+      color: white;
+    }
+
+    .no {
+      background-color: #ffffff;
+      color: #ff5e99;
+      border: 2px solid #ff5e99;
+    }
+
+    #response-buttons button:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .music-toggle {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      padding: 10px 20px;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 2px solid white;
+      border-radius: 30px;
+      font-size: 14px;
+      cursor: pointer;
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+  </style>
 </head>
 <body>
-    
+
+  <div class="bg_heart"></div>
+
+  <div class="music-toggle" onclick="toggleMusic()">🎵 Tap to Play / Pause Music</div>
+
+  <div class="container">
+    <img src="WhatsApp Image 2025-09-10 at 19.21.51.jpeg" alt="Profile" class="circular-image" />
+    <h2 style="margin-top: 10px;">MY WORLD</h2>
+    <h2 id="text1"></h2>
+
+    <div id="response-buttons">
+      <button class="yes" onclick="sheSaidYes()">❤Click here to send your blessings.</button>
+      <!-- <button class="no" onclick="sheSaidNo()">🌸</button> -->
+    </div>
+  </div>
+
+  <audio id="bgMusic" loop>
+    <source src="Kaun Tujhe M.s. Dhoni The Untold Story 128 Kbps.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+  <script>
+    const bgMusic = document.getElementById("bgMusic");
+
+    function toggleMusic() {
+      if (bgMusic.paused) {
+        bgMusic.play();
+      } else {
+        bgMusic.pause();
+      }
+    }
+
+    function sheSaidYes() {
+      confetti();
+      alert("You said YES 😍 You just made ADITYA's day 💖");
+      const message = "Hi Aditya, My blessing is with you ❤";
+      window.open(`https://wa.me/+918787081687?text=${encodeURIComponent(message)}`, '_blank');
+    }
+
+    function sheSaidNo() {
+      alert("It’s okay 🌸 Thank you for reading with so much care.");
+      const message = "Hi Aditya, I truly value your feelings. I need some more time 🌸";
+     window.open(`https://wa.me/+918787081687?text=${encodeURIComponent(message)}`, '_blank');
+    }
+
+    // Floating Hearts
+    setInterval(() => {
+      const r_num = Math.floor(Math.random() * 40) + 1;
+      const r_size = Math.floor(Math.random() * 65) + 10;
+      const r_left = Math.floor(Math.random() * 100) + 1;
+      const r_bg = Math.floor(Math.random() * 25) + 100;
+      const r_time = Math.floor(Math.random() * 5) + 5;
+
+      const heart1 = $("<div class='heart'></div>").css({
+        width: r_size + "px",
+        height: r_size + "px",
+        left: r_left + "%",
+        background: `rgba(255, ${r_bg-25}, ${r_bg}, 1)`,
+
+        "--anim": r_time + "s"
+      });
+
+      const heart2 = $("<div class='heart'></div>").css({
+        width: (r_size - 10) + "px",
+        height: (r_size - 10) + "px",
+        left: (r_left + r_num) + "%",
+        background: `rgba(255, ${r_bg-25}, ${r_bg}, 1)`,
+
+        "--anim": (r_time + 5) + "s"
+      });
+
+      $(".bg_heart").append(heart1, heart2);
+      setTimeout(() => {
+        heart1.remove();
+        heart2.remove();
+      }, (r_time + 5) * 1000 + 1000);
+    }, 500);
+
+    // Typewriter lines
+    const lines = [
+      "Dear Father and Mother, words will never be enough to describe how deeply I love and respect you.",
+       "You are the foundation of my life,",
+        "the reason for every happiness I have,and the strength behind every step I take.",
+        "Your sacrifices, patience, and unconditional love are the treasures I carry in my heart forever.",
+         "I am truly blessed to be your child, and my biggest dream is to make you proud every single day.",
+         "You always keep your blessings on me as the guiding light of my life",
+    ];
+
+    let i = 0;
+    function typeWriter() {
+      if (i < lines.length) {
+        $('#text1').fadeOut(600, function () {
+          $(this).html(lines[i++]).fadeIn(600, function () {
+            setTimeout(typeWriter, 2500);
+          });
+        });
+      } else {
+        $('#response-buttons').fadeIn(1500);
+      }
+    }
+
+    $(document).ready(() => {
+      bgMusic.muted = false;
+      typeWriter();
+    });
+  </script>
 </body>
 </html>
